@@ -44,20 +44,30 @@ body{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
 }
 
 @media (max-width: 768px) {
   .catalogue {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding-bottom: 8px;
   }
 }
 
 @media (max-width: 480px) {
   .catalogue {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+  
+  .card {
+    flex: 0 0 100%;
   }
 }
 
@@ -224,6 +234,10 @@ body{
   padding: 18px;
   box-shadow: 0 18px 44px rgba(30, 24, 18, 0.28);
   position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .pricing-header{
@@ -263,6 +277,21 @@ body{
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 12px;
   margin-top: 12px;
+}
+
+@media (max-width: 768px) {
+  .package-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 12px;
+  }
+  
+  .package-card {
+    flex: 0 0 85vw;
+    min-width: 200px;
+  }
 }
 
 .package-card{
