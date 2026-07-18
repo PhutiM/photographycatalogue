@@ -15,8 +15,8 @@ const packageGrid = document.getElementById('packageGrid');
 let current = 0;
 
 const packageIncludes = {
-  basic: ['10 edited digital photos', 'Online gallery access', '1 outfit'],
-  standard: ['20 edited digital photos', 'Online gallery access', '2 outfits + 1 location'],
+  basic: ['20 edited digital photos', 'Online gallery access', '1 outfit'],
+  standard: ['25 edited digital photos', 'Online gallery access', '2 outfits + 1 location'],
   premium: ['30 edited digital photos', 'Online gallery access', '3 outfits + prints (2 x A4)']
 };
 
@@ -24,49 +24,49 @@ const pricingData = {
   graduation: {
     title: 'Graduation Shoot',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,950', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 2,650', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 3,500', includes: packageIncludes.premium }
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,500', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '2 Hours', price: 'R 1,950', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,400', includes: packageIncludes.premium }
     ]
   },
   pregnancy: {
     title: 'Pregnancy Shoot',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,350', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 3,050', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 3,900', includes: packageIncludes.premium }
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,500', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '2 Hours', price: 'R 1,950', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,400', includes: packageIncludes.premium }
     ]
   },
   group: {
     title: 'Group Photoshoot',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,750', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 3,450', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 4,300', includes: packageIncludes.premium }
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,650', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '2 Hours', price: 'R 2,100', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,550', includes: packageIncludes.premium }
     ]
   },
   cake: {
     title: 'Cake Smash',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,850', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 2,550', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 3,400', includes: packageIncludes.premium }
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,200', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '2 Hours', price: 'R 1,650', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,100', includes: packageIncludes.premium }
     ]
   },
   kiddies: {
     title: 'Kiddies Photoshoot',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,750', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 2,450', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 3,250', includes: packageIncludes.premium }
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,400', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '2 Hours', price: 'R 1,850', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,300', includes: packageIncludes.premium }
     ]
   },
   personal: {
     title: 'Personal Photoshoot',
     packages: [
       { name: 'Basic Package', duration: '1 Hour', price: 'R 1,650', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 2,350', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 3,150', includes: packageIncludes.premium }
+      { name: 'Standard Package', duration: '2 Hours', price: 'R 2,100', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,550', includes: packageIncludes.premium }
     ]
   }
 };
