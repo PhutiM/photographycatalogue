@@ -286,12 +286,39 @@ body{
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     gap: 12px;
+    scroll-snap-type: x mandatory;
+    position: relative;
+    padding-right: 120px;
   }
   
   .package-card {
     flex: 0 0 85vw;
     min-width: 200px;
+    scroll-snap-align: start;
   }
+  
+  .package-grid::after {
+    content: "Swipe right →";
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9b856f;
+    font: 600 0.9rem "Segoe UI", sans-serif;
+    background: rgba(255, 253, 249, 0.95);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #e2d5c4;
+    pointer-events: none;
+    white-space: nowrap;
+    animation: slide 1.5s ease-in-out 0.5s infinite;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+}
+
+@keyframes slide {
+  0%, 100% { transform: translateY(-50%) translateX(0); }
+  50% { transform: translateY(-50%) translateX(-8px); }
 }
 
 .package-card{
