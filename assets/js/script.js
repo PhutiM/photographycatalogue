@@ -20,6 +20,8 @@ const packageIncludes = {
   premium: ['30 edited digital photos', 'Online gallery access', '3 outfits + prints (2 x A4)']
 };
 
+const matricIncludes = (photos) => [`${photos} edited digital photos`, 'Online gallery access', '1 outfit'];
+
 const pricingData = {
   graduation: {
     title: 'Graduation Shoot',
@@ -72,9 +74,9 @@ const pricingData = {
   matric: {
     title: 'Matric Dance',
     packages: [
-      { name: '1 Hour', duration: '1 Hour', price: 'R 2,500', includes: packageIncludes.basic },
-      { name: '2 Hours', duration: '2 Hours', price: 'R 2,950', includes: packageIncludes.basic },
-      { name: '3 Hours', duration: '3 Hours', price: 'R 3,400', includes: packageIncludes.basic }
+      { name: '1 Hour', duration: '1 Hour', price: 'R 2,500', includes: matricIncludes(20) },
+      { name: '2 Hours', duration: '2 Hours', price: 'R 2,950', includes: matricIncludes(40) },
+      { name: '3 Hours', duration: '3 Hours', price: 'R 3,400', includes: matricIncludes(60) }
     ]
   }
 };
