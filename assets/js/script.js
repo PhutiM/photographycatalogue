@@ -68,6 +68,14 @@ const pricingData = {
       { name: 'Standard Package', duration: '1 Hour', price: 'R 2,600', includes: packageIncludes.standard },
       { name: 'Premium Package', duration: '1 Hour', price: 'R 3,050', includes: packageIncludes.premium }
     ]
+  },
+  matric: {
+    title: 'Matric Dance',
+    packages: [
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,500', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,950', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 3,400', includes: packageIncludes.premium }
+    ]
   }
 };
 
