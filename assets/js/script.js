@@ -72,9 +72,9 @@ const pricingData = {
   matric: {
     title: 'Matric Dance',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,500', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,950', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '1 Hour', price: 'R 3,400', includes: packageIncludes.premium }
+      { name: '1 Hour', duration: '1 Hour', price: 'R 2,500', includes: packageIncludes.basic },
+      { name: '2 Hours', duration: '2 Hours', price: 'R 2,950', includes: packageIncludes.basic },
+      { name: '3 Hours', duration: '3 Hours', price: 'R 3,400', includes: packageIncludes.basic }
     ]
   }
 };
