@@ -1,0 +1,241 @@
+const thumbs = Array.from(document.querySelectorAll('.photo-slot img'));
+const photoSlots = Array.from(document.querySelectorAll('.photo-slot'));
+const lightbox = document.getElementById('lightbox');
+const lbImage = document.getElementById('lbImage');
+const lbCaption = document.getElementById('lbCaption');
+const lbClose = document.getElementById('lbClose');
+const lbPrev = document.getElementById('lbPrev');
+const lbNext = document.getElementById('lbNext');
+const pricingButtons = document.querySelectorAll('.view-pricing-btn');
+const pricingModal = document.getElementById('pricingModal');
+const pricingClose = document.getElementById('pricingClose');
+const pricingTitle = document.getElementById('pricingTitle');
+const packageGrid = document.getElementById('packageGrid');
+
+let current = 0;
+
+const packageIncludes = {
+  basic: ['20 edited digital photos', 'Online gallery access', '1 outfit'],
+  standard: ['25 edited digital photos', 'Online gallery access', '2 outfits + 1 location'],
+  premium: ['30 edited digital photos', 'Online gallery access', '3 outfits + prints (2 x A4)']
+};
+
+const matricIncludes = (photos) => [`${photos} edited digital photos`, 'Online gallery access', '1 outfit'];
+
+const pricingData = {
+  graduation: {
+    title: 'Graduation Shoot',
+    packages: [
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,000', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,450', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 2,900', includes: packageIncludes.premium }
+    ]
+  },
+  pregnancy: {
+    title: 'Pregnancy Shoot',
+    packages: [
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,000', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,450', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 2,900', includes: packageIncludes.premium }
+    ]
+  },
+  group: {
+    title: 'Group Photoshoot',
+    packages: [
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,150', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,600', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 3,050', includes: packageIncludes.premium }
+    ]
+  },
+  cake: {
+    title: 'Cake Smash',
+    packages: [
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,700', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,150', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 2,600', includes: packageIncludes.premium }
+    ]
+  },
+  kiddies: {
+    title: 'Kiddies Photoshoot',
+    packages: [
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,900', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,350', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 2,800', includes: packageIncludes.premium }
+    ]
+  },
+  personal: {
+    title: 'Personal Photoshoot',
+    packages: [
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,150', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,600', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 3,050', includes: packageIncludes.premium }
+    ]
+  },
+  matric: {
+    title: 'Matric Dance',
+    packages: [
+      { name: '1 Hour', duration: '1 Hour', price: 'R 2,500', includes: matricIncludes(20) },
+      { name: '2 Hours', duration: '2 Hours', price: 'R 2,950', includes: matricIncludes(40) },
+      { name: '3 Hours', duration: '3 Hours', price: 'R 3,400', includes: matricIncludes(60) }
+    ]
+  }
+};
+
+function placeholderDataUri(label) {
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'>
+    <rect width='100%' height='100%' fill='#efe6db'/>
+    <text x='50%' y='46%' text-anchor='middle' fill='#7b6f61' font-family='Segoe UI, Arial' font-size='34'>Add Photo</text>
+    <text x='50%' y='53%' text-anchor='middle' fill='#8f8274' font-family='Segoe UI, Arial' font-size='24'>${label}</text>
+  </svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
+thumbs.forEach((img) => {
+  img.addEventListener('error', () => {
+    img.src = placeholderDataUri(img.alt);
+  }, { once: true });
+
+  if (img.complete && img.naturalWidth === 0) {
+    img.src = placeholderDataUri(img.alt);
+  }
+});
+
+function openLightbox(index) {
+  current = index;
+  const img = thumbs[current];
+  lbImage.src = img.src;
+  lbImage.alt = img.alt;
+  lbCaption.textContent = img.alt;
+  lightbox.classList.add('active');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  lightbox.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = galleryModal.classList.contains('active') ? 'hidden' : '';
+}
+
+function openPricingModal(shootKey) {
+  const data = pricingData[shootKey];
+  if (!data) return;
+
+  pricingTitle.textContent = `${data.title} Pricing`;
+  packageGrid.innerHTML = data.packages.map((pkg) => `
+    <article class="package-card">
+      <h4>${pkg.name}</h4>
+      <p class="package-duration">Duration: ${pkg.duration}</p>
+      <ul class="package-items">
+        ${pkg.includes.map((item) => `<li>${item}</li>`).join('')}
+      </ul>
+      <p class="package-price">${pkg.price}</p>
+    </article>
+  `).join('');
+
+  pricingModal.classList.add('active');
+  pricingModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePricingModal() {
+  pricingModal.classList.remove('active');
+  pricingModal.setAttribute('aria-hidden', 'true');
+  if (!lightbox.classList.contains('active')) {
+    document.body.style.overflow = '';
+  }
+}
+
+function nextImage() {
+  current = (current + 1) % thumbs.length;
+  openLightbox(current);
+}
+
+function prevImage() {
+  current = (current - 1 + thumbs.length) % thumbs.length;
+  openLightbox(current);
+}
+
+photoSlots.forEach((slot, i) => {
+  slot.addEventListener('click', () => openLightbox(i));
+});
+
+lbClose.addEventListener('click', closeLightbox);
+lbNext.addEventListener('click', nextImage);
+lbPrev.addEventListener('click', prevImage);
+
+pricingButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    openPricingModal(button.dataset.shoot);
+  });
+});
+
+pricingClose.addEventListener('click', closePricingModal);
+
+pricingModal.addEventListener('click', (e) => {
+  if (e.target === pricingModal) closePricingModal();
+});
+
+lightbox.addEventListener('click', (e) => {
+  if (e.target === lightbox) closeLightbox();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (lightbox.classList.contains('active')) closeLightbox();
+    if (pricingModal.classList.contains('active')) closePricingModal();
+  }
+
+  if (!lightbox.classList.contains('active')) return;
+  if (e.key === 'ArrowRight') nextImage();
+  if (e.key === 'ArrowLeft') prevImage();
+});
+
+const galleryModal = document.getElementById('galleryModal');
+const galleryTitle = document.getElementById('galleryTitle');
+const galleryGrid = document.getElementById('galleryGrid');
+
+function closeGalleryModal() {
+  galleryModal.classList.remove('active');
+  galleryModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+function openGalleryModal(card) {
+  galleryTitle.textContent = card.querySelector('h2').textContent;
+  galleryGrid.innerHTML = '';
+  card.querySelectorAll('.photo-slot img').forEach((img) => {
+    const slot = document.createElement('div');
+    slot.className = 'photo-slot';
+    const clone = document.createElement('img');
+    clone.src = img.src;
+    clone.alt = img.alt;
+    slot.appendChild(clone);
+    slot.addEventListener('click', () => openLightbox(thumbs.indexOf(img)));
+    galleryGrid.appendChild(slot);
+  });
+  galleryModal.classList.add('active');
+  galleryModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+document.querySelectorAll('.photo-grid').forEach((grid) => {
+  if (grid.children.length <= 4) return;
+  const card = grid.closest('.card');
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'view-more-btn';
+  btn.textContent = 'View more';
+  btn.addEventListener('click', () => openGalleryModal(card));
+  grid.after(btn);
+});
+
+document.getElementById('galleryClose').addEventListener('click', closeGalleryModal);
+galleryModal.addEventListener('click', (e) => {
+  if (e.target === galleryModal) closeGalleryModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && galleryModal.classList.contains('active') && !lightbox.classList.contains('active')) {
+    closeGalleryModal();
+  }
+});
