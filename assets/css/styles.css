@@ -125,6 +125,25 @@ body{
   gap: 10px;
 }
 
+.card .photo-grid .photo-slot:nth-child(n+5){ display: none; }
+
+.gallery-grid{ grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+.gallery-grid .photo-slot{ display: block !important; }
+
+.view-more-btn{
+  display: block;
+  margin: 12px auto 0;
+  border: 1px solid #c9b9a6;
+  background: #f8f2ea;
+  color: #584d42;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font: 600 0.82rem "Segoe UI", sans-serif;
+  cursor: pointer;
+}
+
+.view-more-btn:hover{ background: #efe5d9; }
+
 .photo-slot{
   aspect-ratio: 1 / 1;
   border-radius: 10px;
@@ -170,7 +189,7 @@ body{
   display: none;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 10001;
   padding: 24px;
 }
 
