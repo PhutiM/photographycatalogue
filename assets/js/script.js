@@ -24,49 +24,49 @@ const pricingData = {
   graduation: {
     title: 'Graduation Shoot',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,500', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 1,950', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,400', includes: packageIncludes.premium }
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,000', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,450', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 2,900', includes: packageIncludes.premium }
     ]
   },
   pregnancy: {
     title: 'Pregnancy Shoot',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,500', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 1,950', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,400', includes: packageIncludes.premium }
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,000', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,450', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 2,900', includes: packageIncludes.premium }
     ]
   },
   group: {
     title: 'Group Photoshoot',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,650', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 2,100', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,550', includes: packageIncludes.premium }
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,150', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,600', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 3,050', includes: packageIncludes.premium }
     ]
   },
   cake: {
     title: 'Cake Smash',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,200', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 1,650', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,100', includes: packageIncludes.premium }
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,700', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,150', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 2,600', includes: packageIncludes.premium }
     ]
   },
   kiddies: {
     title: 'Kiddies Photoshoot',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,400', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 1,850', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,300', includes: packageIncludes.premium }
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,900', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,350', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 2,800', includes: packageIncludes.premium }
     ]
   },
   personal: {
     title: 'Personal Photoshoot',
     packages: [
-      { name: 'Basic Package', duration: '1 Hour', price: 'R 1,650', includes: packageIncludes.basic },
-      { name: 'Standard Package', duration: '2 Hours', price: 'R 2,100', includes: packageIncludes.standard },
-      { name: 'Premium Package', duration: '3 Hours', price: 'R 2,550', includes: packageIncludes.premium }
+      { name: 'Basic Package', duration: '1 Hour', price: 'R 2,150', includes: packageIncludes.basic },
+      { name: 'Standard Package', duration: '1 Hour', price: 'R 2,600', includes: packageIncludes.standard },
+      { name: 'Premium Package', duration: '1 Hour', price: 'R 3,050', includes: packageIncludes.premium }
     ]
   }
 };
@@ -104,7 +104,7 @@ function openLightbox(index) {
 function closeLightbox() {
   lightbox.classList.remove('active');
   lightbox.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
+  document.body.style.overflow = galleryModal.classList.contains('active') ? 'hidden' : '';
 }
 
 function openPricingModal(shootKey) {
@@ -179,4 +179,53 @@ document.addEventListener('keydown', (e) => {
   if (!lightbox.classList.contains('active')) return;
   if (e.key === 'ArrowRight') nextImage();
   if (e.key === 'ArrowLeft') prevImage();
+});
+
+const galleryModal = document.getElementById('galleryModal');
+const galleryTitle = document.getElementById('galleryTitle');
+const galleryGrid = document.getElementById('galleryGrid');
+
+function closeGalleryModal() {
+  galleryModal.classList.remove('active');
+  galleryModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+function openGalleryModal(card) {
+  galleryTitle.textContent = card.querySelector('h2').textContent;
+  galleryGrid.innerHTML = '';
+  card.querySelectorAll('.photo-slot img').forEach((img) => {
+    const slot = document.createElement('div');
+    slot.className = 'photo-slot';
+    const clone = document.createElement('img');
+    clone.src = img.src;
+    clone.alt = img.alt;
+    slot.appendChild(clone);
+    slot.addEventListener('click', () => openLightbox(thumbs.indexOf(img)));
+    galleryGrid.appendChild(slot);
+  });
+  galleryModal.classList.add('active');
+  galleryModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+document.querySelectorAll('.photo-grid').forEach((grid) => {
+  if (grid.children.length <= 4) return;
+  const card = grid.closest('.card');
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'view-more-btn';
+  btn.textContent = 'View more';
+  btn.addEventListener('click', () => openGalleryModal(card));
+  grid.after(btn);
+});
+
+document.getElementById('galleryClose').addEventListener('click', closeGalleryModal);
+galleryModal.addEventListener('click', (e) => {
+  if (e.target === galleryModal) closeGalleryModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && galleryModal.classList.contains('active') && !lightbox.classList.contains('active')) {
+    closeGalleryModal();
+  }
 });
